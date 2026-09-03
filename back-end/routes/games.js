@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import pool from '../db.js';
+import handle_database_error from '../helpers/errors.js';
 
 const router = Router()
 

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import pool from '../db.js';
 import { require_auth, require_admin } from '../auth/auth.js';
+import handle_database_error from '../helpers/errors.js';
 
 const router = Router()
 

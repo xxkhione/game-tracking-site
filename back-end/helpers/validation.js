@@ -45,3 +45,11 @@ function validate_status(status) {
 
     return null
 }
+
+export default {
+    valid_statuses,
+    validate_string,
+    validate_integer,
+    validate_number,
+    validate_status
+}

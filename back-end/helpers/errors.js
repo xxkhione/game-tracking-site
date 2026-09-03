@@ -22,3 +22,5 @@ function handle_database_error(err, res, fallback_message) {
     console.error(err)
     return res.status(500).json({ error: fallback_message })
 }
+
+export default handle_database_error

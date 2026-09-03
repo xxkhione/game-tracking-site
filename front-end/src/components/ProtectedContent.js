@@ -11,30 +11,30 @@ export default function ProtectedContent({
   redirectTo = "/login",
 }) {
   const router = useRouter();
-  const { loading, isAuthenticated, isAdmin } = useAuth();
+  const { loading, isAuthenticated, isAdmin } = useAuth()
 
   useEffect(() => {
     if (loading) {
-      return;
+      return
     }
 
     if (!isAuthenticated) {
-      router.replace(redirectTo);
-      return;
+      router.replace(redirectTo)
+      return
     }
 
     if (requireAdmin && !isAdmin) {
-      router.replace("/");
+      router.replace("/")
     }
-  }, [loading, isAuthenticated, isAdmin, requireAdmin, router, redirectTo]);
+  }, [loading, isAuthenticated, isAdmin, requireAdmin, router, redirectTo])
 
   if (loading) {
-    return <LoadingSpinner label="Checking your session..." />;
+    return <LoadingSpinner label="Checking your session..." />
   }
 
   if (!isAuthenticated || (requireAdmin && !isAdmin)) {
-    return <LoadingSpinner label="Redirecting..." />;
+    return <LoadingSpinner label="Redirecting..." />
   }
 
-  return children;
+  return children
 }

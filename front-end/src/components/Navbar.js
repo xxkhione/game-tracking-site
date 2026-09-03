@@ -29,20 +29,20 @@ function NavLink({ href, label, active }) {
 }
 
 export default function Navbar() {
-  const pathname = usePathname();
-  const { user, isAuthenticated, isAdmin, logout, loading } = useAuth();
+  const pathname = usePathname()
+  const { user, isAuthenticated, isAdmin, logout, loading } = useAuth()
 
   const visibleLinks = links.filter((link) => {
     if (link.admin) {
-      return isAdmin;
+      return isAdmin
     }
 
     if (link.auth) {
-      return isAuthenticated;
+      return isAuthenticated
     }
 
-    return true;
-  });
+    return true
+  })
 
   return (
     <header className="border-b border-zinc-200 bg-white/90 backdrop-blur">
@@ -88,5 +88,5 @@ export default function Navbar() {
         </div>
       </div>
     </header>
-  );
+  )
 }

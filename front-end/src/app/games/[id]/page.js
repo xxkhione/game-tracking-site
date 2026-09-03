@@ -6,25 +6,25 @@ import Button from "@/components/Button";
 import { publicApi } from "@/lib/api";
 
 export async function generateMetadata({ params }) {
-  const { id } = await params;
+  const { id } = await params
 
   try {
-    const game = await publicApi.getGame(id);
-    return { title: `${game.title} | Game Backlog` };
+    const game = await publicApi.getGame(id)
+    return { title: `${game.title} | Game Backlog` }
   } catch {
-    return { title: "Game Details | Game Backlog" };
+    return { title: "Game Details | Game Backlog" }
   }
 }
 
 export default async function GameDetailPage({ params }) {
-  const { id } = await params;
-  let game = null;
-  let error = null;
+  const { id } = await params
+  let game = null
+  let error = null
 
   try {
-    game = await publicApi.getGame(id);
+    game = await publicApi.getGame(id)
   } catch (err) {
-    error = err.message;
+    error = err.message
   }
 
   return (
@@ -88,5 +88,5 @@ export default async function GameDetailPage({ params }) {
         ) : null}
       </main>
     </>
-  );
+  )
 }

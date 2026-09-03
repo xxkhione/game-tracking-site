@@ -12,45 +12,44 @@ import EmptyState from "@/components/EmptyState";
 import Button from "@/components/Button";
 import FormField from "@/components/FormField";
 import { authApi, GAME_STATUSES, formatStatus } from "@/lib/api";
-import { useAuth } from "@/context/AuthContext";
 
-function LibraryEditor({ entry, token, onUpdated, onRemoved }) {
-  const [status, setStatus] = useState(entry.status);
-  const [playtimeHours, setPlaytimeHours] = useState(String(entry.playtimehours ?? 0));
+function LibraryEditor({ entry, onUpdated, onRemoved }) {
+  const [status, setStatus] = useState(entry.status)
+  const [playtimeHours, setPlaytimeHours] = useState(String(entry.playtimehours ?? 0))
   const [obtainedAchievements, setObtainedAchievements] = useState(
     String(entry.obtainedachievements ?? 0)
-  );
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState("");
+  )
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState("")
 
   async function handleSave() {
-    setSaving(true);
-    setError("");
+    setSaving(true)
+    setError("")
 
     try {
-      const updated = await authApi.updateLibraryEntry(token, entry.usergameid, {
+      const updated = await authApi.updateLibraryEntry(entry.usergameid, {
         status,
         playtime_hours: Number(playtimeHours),
         obtained_achievements: Number(obtainedAchievements),
-      });
-      onUpdated(updated);
+      })
+      onUpdated(updated)
     } catch (err) {
-      setError(err.message);
+      setError(err.message)
     } finally {
-      setSaving(false);
+      setSaving(false)
     }
   }
 
   async function handleRemove() {
-    setSaving(true);
-    setError("");
+    setSaving(true)
+    setError("")
 
     try {
-      await authApi.removeFromLibrary(token, entry.usergameid);
-      onRemoved(entry.usergameid);
+      await authApi.removeFromLibrary(entry.usergameid)
+      onRemoved(entry.usergameid)
     } catch (err) {
-      setError(err.message);
-      setSaving(false);
+      setError(err.message)
+      setSaving(false)
     }
   }
 
@@ -93,33 +92,32 @@ function LibraryEditor({ entry, token, onUpdated, onRemoved }) {
         </Button>
       </div>
     </div>
-  );
+  )
 }
 
 export default function LibraryPage() {
-  const { token } = useAuth();
-  const [entries, setEntries] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [activeId, setActiveId] = useState(null);
+  const [entries, setEntries] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+  const [activeId, setActiveId] = useState(null)
 
   const loadLibrary = useCallback(async () => {
-    setLoading(true);
-    setError("");
+    setLoading(true)
+    setError("")
 
     try {
-      const data = await authApi.getLibrary(token);
-      setEntries(data);
+      const data = await authApi.getLibrary()
+      setEntries(data)
     } catch (err) {
-      setError(err.message);
+      setError(err.message)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  }, [token]);
+  }, []);
 
   useEffect(() => {
-    loadLibrary();
-  }, [loadLibrary]);
+    loadLibrary()
+  }, [loadLibrary])
 
   return (
     <ProtectedContent>
@@ -172,7 +170,6 @@ export default function LibraryPage() {
                 {activeId === entry.usergameid ? (
                   <LibraryEditor
                     entry={entry}
-                    token={token}
                     onUpdated={(updated) => {
                       setEntries((current) =>
                         current.map((item) =>
@@ -196,5 +193,5 @@ export default function LibraryPage() {
         )}
       </main>
     </ProtectedContent>
-  );
+  )
 }

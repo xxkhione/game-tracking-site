@@ -11,9 +11,8 @@ import StatusBadge from "@/components/StatusBadge";
 import FormField from "@/components/FormField";
 import Button from "@/components/Button";
 import { adminApi } from "@/lib/api";
-import { useAuth } from "@/context/AuthContext";
 
-function PendingGamePanel({ submission, token, onResolved }) {
+function PendingGamePanel({ submission, onResolved }) {
   const [form, setForm] = useState({
     title: submission.title,
     genre: submission.genre,
@@ -22,47 +21,47 @@ function PendingGamePanel({ submission, token, onResolved }) {
     cover_url: "",
     description: "",
     achievement_count: 0,
-  });
-  const [rejectionReason, setRejectionReason] = useState("");
-  const [error, setError] = useState("");
-  const [working, setWorking] = useState(false);
+  })
+  const [rejectionReason, setRejectionReason] = useState("")
+  const [error, setError] = useState("")
+  const [working, setWorking] = useState(false)
 
   function handleChange(event) {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     setForm((current) => ({
       ...current,
       [name]:
         name === "release_year" || name === "achievement_count"
           ? Number(value)
           : value,
-    }));
+    }))
   }
 
   async function handleApprove() {
-    setWorking(true);
-    setError("");
+    setWorking(true)
+    setError("")
 
     try {
-      await adminApi.approvePendingGame(token, submission.pendinggameid, form);
-      onResolved(submission.pendinggameid);
+      await adminApi.approvePendingGame(submission.pendinggameid, form)
+      onResolved(submission.pendinggameid)
     } catch (err) {
-      setError(err.message);
-      setWorking(false);
+      setError(err.message)
+      setWorking(false)
     }
   }
 
   async function handleReject() {
-    setWorking(true);
-    setError("");
+    setWorking(true)
+    setError("")
 
     try {
-      await adminApi.rejectPendingGame(token, submission.pendinggameid, {
+      await adminApi.rejectPendingGame(submission.pendinggameid, {
         rejection_reason: rejectionReason,
-      });
-      onResolved(submission.pendinggameid);
+      })
+      onResolved(submission.pendinggameid)
     } catch (err) {
-      setError(err.message);
-      setWorking(false);
+      setError(err.message)
+      setWorking(false)
     }
   }
 
@@ -131,32 +130,31 @@ function PendingGamePanel({ submission, token, onResolved }) {
         </Button>
       </div>
     </article>
-  );
+  )
 }
 
 export default function AdminPage() {
-  const { token } = useAuth();
-  const [pendingGames, setPendingGames] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [pendingGames, setPendingGames] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
 
   const loadPendingGames = useCallback(async () => {
-    setLoading(true);
-    setError("");
+    setLoading(true)
+    setError("")
 
     try {
-      const data = await adminApi.getPendingGames(token);
-      setPendingGames(data);
+      const data = await adminApi.getPendingGames()
+      setPendingGames(data)
     } catch (err) {
-      setError(err.message);
+      setError(err.message)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  }, [token]);
+  }, [])
 
   useEffect(() => {
-    loadPendingGames();
-  }, [loadPendingGames]);
+    loadPendingGames()
+  }, [loadPendingGames])
 
   return (
     <ProtectedContent requireAdmin>
@@ -182,7 +180,6 @@ export default function AdminPage() {
               <PendingGamePanel
                 key={submission.pendinggameid}
                 submission={submission}
-                token={token}
                 onResolved={(pendingGameId) => {
                   setPendingGames((current) =>
                     current.filter((item) => item.pendinggameid !== pendingGameId)
@@ -194,5 +191,5 @@ export default function AdminPage() {
         )}
       </main>
     </ProtectedContent>
-  );
+  )
 }

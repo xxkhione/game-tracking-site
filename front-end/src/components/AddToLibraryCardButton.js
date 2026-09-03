@@ -11,36 +11,36 @@ export default function AddToLibraryCardButton({
   inLibrary = false,
   onAdded,
 }) {
-  const { isAuthenticated, token } = useAuth();
-  const [added, setAdded] = useState(inLibrary);
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
+  const { isAuthenticated } = useAuth()
+  const [added, setAdded] = useState(inLibrary)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState("")
 
   useEffect(() => {
-    setAdded(inLibrary);
-  }, [inLibrary]);
+    setAdded(inLibrary)
+  }, [inLibrary])
 
   if (!isAuthenticated) {
-    return null;
+    return null
   }
 
   async function handleAdd() {
-    setSubmitting(true);
-    setError("");
+    setSubmitting(true)
+    setError("")
 
     try {
-      await authApi.addToLibrary(token, { game_id: gameId });
-      setAdded(true);
-      onAdded?.(gameId);
+      await authApi.addToLibrary({ game_id: gameId });
+      setAdded(true)
+      onAdded?.(gameId)
     } catch (err) {
       if (err.status === 409) {
-        setAdded(true);
-        onAdded?.(gameId);
+        setAdded(true)
+        onAdded?.(gameId)
       } else {
-        setError(err.message);
+        setError(err.message)
       }
     } finally {
-      setSubmitting(false);
+      setSubmitting(false)
     }
   }
 
@@ -51,7 +51,7 @@ export default function AddToLibraryCardButton({
           In your library
         </Button>
       </Link>
-    );
+    )
   }
 
   return (
@@ -61,5 +61,5 @@ export default function AddToLibraryCardButton({
         {submitting ? "Adding..." : "Add to library"}
       </Button>
     </div>
-  );
+  )
 }

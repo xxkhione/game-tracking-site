@@ -11,37 +11,37 @@ import ErrorAlert from "@/components/ErrorAlert";
 import { useAuth } from "@/context/AuthContext";
 
 export default function RegisterPage() {
-  const router = useRouter();
-  const { register } = useAuth();
-  const [form, setForm] = useState({ username: "", password: "", confirmPassword: "" });
-  const [error, setError] = useState("");
-  const [submitting, setSubmitting] = useState(false);
+  const router = useRouter()
+  const { register } = useAuth()
+  const [form, setForm] = useState({ username: "", password: "", confirmPassword: "" })
+  const [error, setError] = useState("")
+  const [submitting, setSubmitting] = useState(false)
 
   function handleChange(event) {
     setForm((current) => ({
       ...current,
       [event.target.name]: event.target.value,
-    }));
+    }))
   }
 
   async function handleSubmit(event) {
-    event.preventDefault();
-    setSubmitting(true);
-    setError("");
+    event.preventDefault()
+    setSubmitting(true)
+    setError("")
 
     if (form.password !== form.confirmPassword) {
-      setError("Passwords do not match.");
-      setSubmitting(false);
-      return;
+      setError("Passwords do not match.")
+      setSubmitting(false)
+      return
     }
 
     try {
-      await register({ username: form.username, password: form.password });
-      router.push("/library");
+      await register({ username: form.username, password: form.password })
+      router.push("/library")
     } catch (err) {
-      setError(err.message);
+      setError(err.message)
     } finally {
-      setSubmitting(false);
+      setSubmitting(false)
     }
   }
 
@@ -92,5 +92,5 @@ export default function RegisterPage() {
         </p>
       </main>
     </>
-  );
+  )
 }

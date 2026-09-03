@@ -10,7 +10,7 @@ const variants = {
   danger:
     "bg-red-600 text-white hover:bg-red-500 focus-visible:outline-red-600",
   ghost: "text-violet-700 hover:bg-violet-50 focus-visible:outline-violet-400",
-};
+}
 
 export default function Button({
   children,
@@ -27,5 +27,5 @@ export default function Button({
     >
       {children}
     </button>
-  );
+  )
 }

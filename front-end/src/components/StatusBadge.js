@@ -18,5 +18,5 @@ export default function StatusBadge({ status }) {
     >
       {formatStatus(status)}
     </span>
-  );
+  )
 }

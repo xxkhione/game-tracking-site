@@ -6,14 +6,14 @@ import AddToLibraryButton from "@/components/AddToLibraryButton";
 import { useAuth } from "@/context/AuthContext";
 
 export default function TrackGameSection({ gameId }) {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading } = useAuth()
 
   if (loading) {
     return (
       <div className="rounded-2xl border border-violet-200 bg-violet-50 p-6 text-sm text-violet-800">
         Checking your session...
       </div>
-    );
+    )
   }
 
   if (isAuthenticated) {
@@ -27,7 +27,7 @@ export default function TrackGameSection({ gameId }) {
           <AddToLibraryButton gameId={gameId} />
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -45,5 +45,5 @@ export default function TrackGameSection({ gameId }) {
         </Link>
       </div>
     </div>
-  );
+  )
 }

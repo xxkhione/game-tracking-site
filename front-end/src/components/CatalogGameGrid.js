@@ -7,27 +7,27 @@ import { authApi } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 
 export default function CatalogGameGrid({ games }) {
-  const { isAuthenticated, token } = useAuth();
-  const [libraryGameIds, setLibraryGameIds] = useState(new Set());
+  const { isAuthenticated } = useAuth()
+  const [libraryGameIds, setLibraryGameIds] = useState(new Set())
 
   useEffect(() => {
-    if (!isAuthenticated || !token) {
-      setLibraryGameIds(new Set());
-      return;
+    if (!isAuthenticated) {
+      setLibraryGameIds(new Set())
+      return
     }
 
     authApi
-      .getLibrary(token)
+      .getLibrary()
       .then((entries) => {
-        setLibraryGameIds(new Set(entries.map((entry) => entry.fgameid)));
+        setLibraryGameIds(new Set(entries.map((entry) => entry.fgameid)))
       })
       .catch(() => {
-        setLibraryGameIds(new Set());
-      });
-  }, [isAuthenticated, token]);
+        setLibraryGameIds(new Set())
+      })
+  }, [isAuthenticated])
 
   function handleAdded(gameId) {
-    setLibraryGameIds((current) => new Set([...current, gameId]));
+    setLibraryGameIds((current) => new Set([...current, gameId]))
   }
 
   return (
@@ -46,5 +46,5 @@ export default function CatalogGameGrid({ games }) {
         />
       ))}
     </div>
-  );
+  )
 }

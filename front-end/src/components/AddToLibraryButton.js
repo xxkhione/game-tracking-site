@@ -8,27 +8,27 @@ import { authApi } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 
 export default function AddToLibraryButton({ gameId }) {
-  const { isAuthenticated, token } = useAuth();
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
-  const [submitting, setSubmitting] = useState(false);
+  const { isAuthenticated } = useAuth()
+  const [message, setMessage] = useState("")
+  const [error, setError] = useState("")
+  const [submitting, setSubmitting] = useState(false)
 
   if (!isAuthenticated) {
-    return null;
+    return null
   }
 
   async function handleAdd() {
-    setSubmitting(true);
-    setError("");
-    setMessage("");
+    setSubmitting(true)
+    setError("")
+    setMessage("")
 
     try {
-      await authApi.addToLibrary(token, { game_id: gameId });
-      setMessage("Added to your library.");
+      await authApi.addToLibrary({ game_id: gameId })
+      setMessage("Added to your library.")
     } catch (err) {
-      setError(err.message);
+      setError(err.message)
     } finally {
-      setSubmitting(false);
+      setSubmitting(false)
     }
   }
 
@@ -49,5 +49,5 @@ export default function AddToLibraryButton({ gameId }) {
         </Link>
       </div>
     </div>
-  );
+  )
 }

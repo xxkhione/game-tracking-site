@@ -11,31 +11,31 @@ import ErrorAlert from "@/components/ErrorAlert";
 import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
-  const router = useRouter();
-  const { login } = useAuth();
-  const [form, setForm] = useState({ username: "", password: "" });
-  const [error, setError] = useState("");
-  const [submitting, setSubmitting] = useState(false);
+  const router = useRouter()
+  const { login } = useAuth()
+  const [form, setForm] = useState({ username: "", password: "" })
+  const [error, setError] = useState("")
+  const [submitting, setSubmitting] = useState(false)
 
   function handleChange(event) {
     setForm((current) => ({
       ...current,
       [event.target.name]: event.target.value,
-    }));
+    }))
   }
 
   async function handleSubmit(event) {
-    event.preventDefault();
-    setSubmitting(true);
-    setError("");
+    event.preventDefault()
+    setSubmitting(true)
+    setError("")
 
     try {
-      await login(form);
-      router.push("/library");
+      await login(form)
+      router.push("/library")
     } catch (err) {
-      setError(err.message);
+      setError(err.message)
     } finally {
-      setSubmitting(false);
+      setSubmitting(false)
     }
   }
 
@@ -78,5 +78,5 @@ export default function LoginPage() {
         </p>
       </main>
     </>
-  );
+  )
 }

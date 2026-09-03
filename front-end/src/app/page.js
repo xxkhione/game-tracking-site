@@ -6,15 +6,15 @@ import Button from "@/components/Button";
 import { publicApi } from "@/lib/api";
 
 export default async function HomePage() {
-  let games = [];
+  let games = []
 
   try {
-    games = await publicApi.getGames();
+    games = await publicApi.getGames()
   } catch {
-    games = [];
+    games = []
   }
 
-  const featuredGames = games.slice(0, 3);
+  const featuredGames = games.slice(0, 3)
 
   return (
     <>
@@ -66,5 +66,5 @@ export default async function HomePage() {
         </section>
       </main>
     </>
-  );
+  )
 }

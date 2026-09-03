@@ -8,12 +8,12 @@ export const metadata = {
 };
 
 export default async function GamesPage() {
-  let games = [];
+  let games = []
 
   try {
-    games = await publicApi.getGames();
+    games = await publicApi.getGames()
   } catch {
-    games = [];
+    games = []
   }
 
   return (
@@ -34,5 +34,5 @@ export default async function GamesPage() {
         )}
       </main>
     </>
-  );
+  )
 }

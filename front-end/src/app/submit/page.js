@@ -9,49 +9,47 @@ import Button from "@/components/Button";
 import ErrorAlert from "@/components/ErrorAlert";
 import ProtectedContent from "@/components/ProtectedContent";
 import { authApi } from "@/lib/api";
-import { useAuth } from "@/context/AuthContext";
 
 export default function SubmitGamePage() {
-  const router = useRouter();
-  const { token } = useAuth();
+  const router = useRouter()
   const [form, setForm] = useState({
     title: "",
     genre: "",
     platform: "",
     release_year: new Date().getFullYear(),
   });
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
+  const [submitting, setSubmitting] = useState(false)
 
   function handleChange(event) {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     setForm((current) => ({
       ...current,
       [name]: name === "release_year" ? Number(value) : value,
-    }));
+    }))
   }
 
   async function handleSubmit(event) {
-    event.preventDefault();
-    setSubmitting(true);
-    setError("");
-    setSuccess("");
+    event.preventDefault()
+    setSubmitting(true)
+    setError("")
+    setSuccess("")
 
     try {
-      await authApi.submitPendingGame(token, form);
-      setSuccess("Your game was submitted for admin review.");
+      await authApi.submitPendingGame(form)
+      setSuccess("Your game was submitted for admin review.")
       setForm({
         title: "",
         genre: "",
         platform: "",
         release_year: new Date().getFullYear(),
-      });
-      setTimeout(() => router.push("/library"), 1200);
+      })
+      setTimeout(() => router.push("/library"), 1200)
     } catch (err) {
-      setError(err.message);
+      setError(err.message)
     } finally {
-      setSubmitting(false);
+      setSubmitting(false)
     }
   }
 
@@ -106,5 +104,5 @@ export default function SubmitGamePage() {
         </form>
       </main>
     </ProtectedContent>
-  );
+  )
 }

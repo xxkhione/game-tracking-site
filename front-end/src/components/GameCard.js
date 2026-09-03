@@ -12,22 +12,21 @@ export default function GameCard({
   onAction,
   footer,
 }) {
-  const title = game.title;
-  const coverUrl = game.coverurl || game.cover_url;
-  const gameId = game.gameid || game.fgameid;
-  const platform = game.platform;
-  const genre = game.genre;
-  const releaseYear = game.releaseyear || game.release_year;
-  const description = game.description;
-  const achievementCount = game.achievementcount ?? game.achievement_count;
+  const title = game.title
+  const coverUrl = game.coverurl || game.cover_url
+  const gameId = game.gameid || game.fgameid
+  const platform = game.platform
+  const genre = game.genre
+  const releaseYear = game.releaseyear || game.release_year
+  const description = game.description
+  const achievementCount = game.achievementcount ?? game.achievement_count
 
-  const isCompact = variant === "compact";
+  const isCompact = variant === "compact"
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
       <div className={`relative bg-zinc-100 ${isCompact ? "h-36" : "h-48"}`}>
         {coverUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={coverUrl}
             alt={`${title} cover`}
@@ -82,5 +81,5 @@ export default function GameCard({
         ) : null}
       </div>
     </article>
-  );
+  )
 }

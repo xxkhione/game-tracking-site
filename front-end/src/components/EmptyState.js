@@ -17,5 +17,5 @@ export default function EmptyState({ title, message, actionLabel, onAction, href
         </div>
       ) : null}
     </div>
-  );
+  )
 }

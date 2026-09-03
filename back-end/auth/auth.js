@@ -19,7 +19,7 @@ function require_admin(req, res, next) {
     next()
 }
 
-export default {
+export {
     require_auth,
     require_admin
 }

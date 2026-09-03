@@ -146,7 +146,7 @@ router.delete('/admin/games/:game_id', require_auth, require_admin, async (req, 
     }
 })
 
-app.get('/admin/pending-games', require_auth, require_admin, async (req, res) => {
+router.get('/admin/pending-games', require_auth, require_admin, async (req, res) => {
     try {
         const result = await pool.query(`
             SELECT
@@ -172,7 +172,7 @@ app.get('/admin/pending-games', require_auth, require_admin, async (req, res) =>
     }
 })
 
-app.get('/admin/pending-games/:pending_game_id', require_auth, require_admin, async (req, res) => {
+router.get('/admin/pending-games/:pending_game_id', require_auth, require_admin, async (req, res) => {
     const pending_game_id = Number(req.params.pending_game_id)
 
     if (!Number.isInteger(pending_game_id) || pending_game_id < 1) {
@@ -207,7 +207,7 @@ app.get('/admin/pending-games/:pending_game_id', require_auth, require_admin, as
     }
 })
 
-app.post('/admin/pending-games/:pending_game_id/approve', require_auth, require_admin, async (req, res) => {
+router.post('/admin/pending-games/:pending_game_id/approve', require_auth, require_admin, async (req, res) => {
     const pending_game_id = Number(req.params.pending_game_id)
     const {
         title,
@@ -306,7 +306,7 @@ app.post('/admin/pending-games/:pending_game_id/approve', require_auth, require_
     }
 })
 
-app.patch('/admin/pending-games/:pending_game_id/reject', require_auth, require_admin, async (req, res) => {
+router.patch('/admin/pending-games/:pending_game_id/reject', require_auth, require_admin, async (req, res) => {
     const pending_game_id = Number(req.params.pending_game_id)
     const { rejection_reason = null } = req.body
 

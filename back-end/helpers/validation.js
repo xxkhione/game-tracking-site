@@ -46,7 +46,7 @@ function validate_status(status) {
     return null
 }
 
-export default {
+export {
     valid_statuses,
     validate_string,
     validate_integer,

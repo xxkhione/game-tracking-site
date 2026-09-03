@@ -115,22 +115,4 @@ router.post('/logout', require_auth, (req, res) => {
     })
 })
 
-router.get('/me', require_auth, async (req, res) => {
-    try {
-        const result = await pool.query(`
-            SELECT userid, username, role, createdat
-            FROM users
-            WHERE userid = $1
-        `, [req.user.user_id])
-
-        if (result.rowCount === 0) {
-            return res.status(401).json({ error: 'This account no longer exists.' })
-        }
-
-        res.json({ user: make_user_response(result.rows[0]) })
-    } catch (err) {
-        handle_database_error(err, res, 'Could not load the current user.')
-    }
-})
-
 export default router

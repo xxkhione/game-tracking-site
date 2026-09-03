@@ -60,7 +60,7 @@ app.use(authRoutes)
 app.use(gameRoutes)
 app.use(libraryRoutes)
 app.use(submissionRoutes)
-app.use('/admin', adminRoutes)
+app.use(adminRoutes)
 
 app.use((req, res) => {
     res.status(404).json({ error: 'Endpoint not found.' })

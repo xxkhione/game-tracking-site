@@ -2,26 +2,9 @@ import { Router } from 'express';
 import pool from '../db.js';
 import { require_auth } from '../auth/auth.js';
 import handle_database_error from '../helpers/errors.js';
+import { validate_integer, validate_status, validate_number } from '../helpers/validation.js';
 
 const router = Router()
-
-router.get('/me', require_auth, async (req, res) => {
-    try {
-        const result = await pool.query(`
-            SELECT userid, username, role, createdat
-            FROM users
-            WHERE userid = $1
-        `, [req.user.user_id])
-
-        if (result.rowCount === 0) {
-            return res.status(401).json({ error: 'This account no longer exists.' })
-        }
-
-        res.json({ user: make_user_response(result.rows[0]) })
-    } catch (err) {
-        handle_database_error(err, res, 'Could not load the current user.')
-    }
-})
 
 router.get('/me/games', require_auth, async (req, res) => {
     try {

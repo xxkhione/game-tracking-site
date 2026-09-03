@@ -19,44 +19,16 @@ A full-stack game backlog tracker for a web development final project. Users can
 
 You need **two terminals** running at the same time (backend + frontend).
 
-### Step 1: Database setup
-
-1. Install PostgreSQL and remember the password you set for the `postgres` user during install.
-2. Create your backend environment file:
+### Step 1: Start the backend
 
 ```powershell
 cd back-end
-copy .env.example .env
-```
-
-3. Open `back-end/.env` and set your postgres password:
-
-```env
-PGPASSWORD=your_postgres_password
-```
-
-4. Install dependencies and create the database:
-
-```powershell
-npm install
-npm run setup-db
-```
-
-This creates:
-- the `final` database
-- the `game_app_admin` database user (used by the API)
-- all tables and 5 sample games
-
-### Step 2: Start the backend
-
-```powershell
-cd back-end
-npm run dev
+npm start
 ```
 
 API runs at **http://localhost:3001**
 
-### Step 3: Start the frontend
+### Step 2: Start the frontend
 
 Open a **second terminal**:
 
@@ -163,11 +135,7 @@ The API connection settings in `back-end/index.js` must match `PG_APP_USER`, `PG
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start API with nodemon (port 3001) |
-| `npm start` | Start API without nodemon |
-| `npm run setup-db` | Create database, tables, and seed games |
-| `npm run make-admin -- username` | Promote a registered user to admin |
-| `npm run fix-covers` | Fix incorrect sample game cover images |
+| `npm start` | Start API with nodemon |
 
 ### Frontend (`front-end/`)
 
@@ -207,41 +175,6 @@ Visit **http://localhost:3001** while the backend is running for a JSON list of 
 
 ---
 
-## Troubleshooting
-
-| Problem | Fix |
-|---------|-----|
-| `psql is not recognized` | PostgreSQL CLI is not on PATH. Use `npm run setup-db` instead. |
-| `Could not connect to PostgreSQL` | Set `PGPASSWORD` in `back-end/.env`, then run `npm run setup-db`. |
-| `ECONNREFUSED` | Start the PostgreSQL service in Windows Services. |
-| `password authentication failed` | Double-check the postgres password in `back-end/.env`. |
-| Catalog shows no games | Make sure the backend is running and `npm run setup-db` completed successfully. |
-| Wrong game cover images | Run `npm run fix-covers` in `back-end/`. |
-| Admin page not visible | Run `npm run make-admin -- your_username`, then log out and back in. |
-| `Admin access is required` | Your JWT is stale. Log out and log back in after being promoted. |
-| Frontend cannot reach API | Confirm backend is on port 3001 and `NEXT_PUBLIC_API_URL` in `.env.local` is correct. |
-| Password has `$` or `!` in PowerShell | Use single quotes: `$env:PGPASSWORD='My$ecure!Pass'` |
-
----
-
-## Assignment checklist
-
-| Requirement | Implementation |
-|---|---|
-| Express backend | `back-end/index.js` |
-| CRUD operations | Library entries, games, pending submissions |
-| Error handling | Validation helpers + PostgreSQL error mapping |
-| Public endpoints | `GET /games`, `GET /games/:id`, auth routes |
-| Protected endpoints | `/me/*`, `/pending-games`, `/admin/*` |
-| Next.js frontend | `front-end/src/app` |
-| 4+ pages | Home, Catalog, Game Detail, Login, Register, Library, Submit, Admin |
-| Reusable components | `GameCard`, `FormField`, `PageHeader`, `StatusBadge`, etc. |
-| PostgreSQL (3+ tables) | `users`, `game`, `users_game`, `pending_game` |
-| Encrypted passwords | bcrypt in register/login |
-| Auth + authorization | JWT tokens, role-based admin routes |
-
----
-
 ## Project structure
 
 ```
@@ -251,15 +184,12 @@ final/
 │   ├── .env.example        # Database config template
 │   ├── index.js            # Express API
 │   ├── schema.sql          # Tables + sample games
-│   ├── setup-db.js         # Database setup script
 │   ├── make-admin.js       # Promote user to admin
-│   ├── fix-covers.js       # Fix sample cover images
 │   └── package.json
 └── front-end/
     ├── .env.local.example  # API URL template
     └── src/
         ├── app/            # Next.js pages
         ├── components/     # Shared UI components
-        ├── context/        # Auth context (JWT)
         └── lib/            # API client
 ```

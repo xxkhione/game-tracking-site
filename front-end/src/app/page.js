@@ -44,7 +44,7 @@ export default async function HomePage() {
         <section className="mt-12">
           <PageHeader
             title="Featured games"
-            subtitle="Anyone can browse the catalog. Sign in to add games to your personal backlog."
+            subtitle=""
             action={
               <Link href="/games">
                 <Button variant="secondary">View all games</Button>

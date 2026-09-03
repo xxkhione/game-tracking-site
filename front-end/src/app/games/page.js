@@ -22,7 +22,7 @@ export default async function GamesPage() {
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <PageHeader
           title="Game catalog"
-          subtitle="Public endpoint: anyone can browse approved games without logging in."
+          subtitle=""
         />
 
         {games.length > 0 ? (

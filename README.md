@@ -5,7 +5,7 @@ A full-stack game backlog tracker for a web development final project. Users can
 ## Stack
 
 - **Frontend:** Next.js (App Router), React, Tailwind CSS
-- **Backend:** Express.js, JWT authentication, bcrypt password hashing
+- **Backend:** Express.js, Express Sessions, bcrypt password hashing
 - **Database:** PostgreSQL (4 tables: `users`, `game`, `users_game`, `pending_game`)
 
 ## Prerequisites

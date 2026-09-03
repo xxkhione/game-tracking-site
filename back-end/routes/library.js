@@ -128,7 +128,7 @@ router.patch('/me/games/:user_game_id', require_auth, async (req, res) => {
             FROM users_game ug
             JOIN game g ON ug.fgameid = g.gameid
             WHERE ug.usergameid = $1
-              AND ug.fuserid = $2
+                AND ug.fuserid = $2
         `, [user_game_id, req.user.user_id])
 
         if (existing_result.rowCount === 0) {
@@ -155,7 +155,7 @@ router.patch('/me/games/:user_game_id', require_auth, async (req, res) => {
                 playtimehours = COALESCE($2, playtimehours),
                 obtainedachievements = COALESCE($3, obtainedachievements)
             WHERE usergameid = $4
-              AND fuserid = $5
+                AND fuserid = $5
             RETURNING *
         `, [
             status ?? null,
@@ -182,7 +182,7 @@ router.delete('/me/games/:user_game_id', require_auth, async (req, res) => {
         const result = await pool.query(`
             DELETE FROM users_game
             WHERE usergameid = $1
-              AND fuserid = $2
+                AND fuserid = $2
             RETURNING *
         `, [user_game_id, req.user.user_id])
 
